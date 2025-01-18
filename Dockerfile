@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -6,6 +6,9 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 COPY requirements.txt /app/
+# This line is to avoid the usage of psycopg2-binary and to be able to compile it
+RUN apt-get update && apt-get -y install libpq-dev gcc
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
