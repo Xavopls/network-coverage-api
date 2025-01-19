@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
+    'apps.network_coverage',
+    'apps.address_lookup',
 ]
 
 MIDDLEWARE = [
@@ -95,6 +97,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Api built to retrieve 2G/3G/4G network coverage data.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True
 }
 
 # Database
