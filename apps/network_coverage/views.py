@@ -44,8 +44,8 @@ class NetworkCoverageView(APIView):
                 )
 
             try:
-                usecase = PostImportNetworkCoverageUseCase(file)
-                records_imported = usecase.execute()
+                usecase = PostImportNetworkCoverageUseCase()
+                records_imported = usecase.execute(file)
                 return Response(
                     {"detail": f"Successfully imported {records_imported} records."},
                     status=status.HTTP_201_CREATED,
