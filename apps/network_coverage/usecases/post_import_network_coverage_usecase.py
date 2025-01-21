@@ -21,8 +21,8 @@ class PostImportNetworkCoverageUseCase:
         records: [NetworkCoverageSerializer] = []
         row_amount = 0
         for row in reader:
-            lat, lon, x_lp93, y_lp93 = self.handle_coordinates(row)
-            operator = self.handle_operator(int(row['Operateur']))
+            lat, lon, x_lp93, y_lp93 = self.__handle_coordinates(row)
+            operator = self.__handle_operator(int(row['Operateur']))
             row_amount += 1
             # Prepare data for serialization
             record = {
@@ -38,28 +38,27 @@ class PostImportNetworkCoverageUseCase:
                 'updated_at': datetime.now()
             }
 
-            self.serialize_address(record, records)
+            self.__serialize_address(record, records)
 
-            # Save in chunks
             if len(records) >= self.CHUNK_SIZE:
-                self.bulk_save(records)
+                self.__bulk_save(records)
                 records.clear()
         # Save any remaining records
         if records:
-            self.bulk_save(records)
+            self.__bulk_save(records)
             records.clear()
 
         return row_amount
 
     @transaction.atomic
-    def bulk_save(self, records):
+    def __bulk_save(self, records):
         try:
             NetworkCoverage.objects.bulk_create(records, batch_size=self.CHUNK_SIZE)
         except Exception as e:
             print(f"Error during bulk save: {str(e)}")
             raise e
 
-    def serialize_address(self, record, records):
+    def __serialize_address(self, record, records):
         serializer = NetworkCoverageSerializer(data=record)
         if serializer.is_valid():
             instance = NetworkCoverage(**serializer.validated_data)
@@ -68,11 +67,11 @@ class PostImportNetworkCoverageUseCase:
             print(f"Invalid data: {serializer.errors}")
             raise ValueError(f"Invalid data: {serializer.errors}")
 
-    def handle_coordinates(self, row):
+    def __handle_coordinates(self, row):
         x_lp93 = int(row['x'])
         y_lp93 = int(row['y'])
         lon, lat = CoordinateConverter().lamber93_to_gps(x_lp93, y_lp93)
         return lat, lon, x_lp93, y_lp93
 
-    def handle_operator(self, id: int) -> str:
+    def __handle_operator(self, id):
         return OPERATOR_CODES.get(id, 'Unknown Operator')

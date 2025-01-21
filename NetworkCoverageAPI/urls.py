@@ -21,6 +21,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
 
+    # Redirect root to api docs
     path('', RedirectView.as_view(url='/api/schema/swagger-ui/', permanent=True)),
 
     path('admin/', admin.site.urls),
@@ -28,6 +29,7 @@ urlpatterns = [
 
     # Network Coverage Endpoints
     path('network-coverage/', include('apps.network_coverage.urls')),
+
     # URLS for OpenAPI Docs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
