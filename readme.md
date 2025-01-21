@@ -66,18 +66,21 @@ The project follows a solid architectural approach with a focus on separation of
 - Tested on an Intel processor. Docker containers might not work on other architectures without adjustments.
 
 ## Future Enhancements / TODOs
-1. **Dynamic Operator Names**:
-    - Use a web scraper or external API to dynamically map Operator IDs to proper names (currently hardcoded in a dictionary).
+1. **Tests**:
+   - Since there are 2 endpoints, testing wouldn't be a huge deal, using pytest-django or DRF's APiTestCaseUse.
 
-2. **Periodic Data Updates**:
+2. **Dynamic Operator Names**:
+   - Use a web scraper or external API to dynamically map Operator IDs to proper names (currently hardcoded in a dictionary).
+
+3. **Periodic Data Updates**:
     - Implement a batch job to retrieve data from providers such as [Adresse Data Gouv](https://adresse.data.gouv.fr/outils) to keep the database up to date.
 
-3. **Data Cleaning**:
+4. **Data Cleaning**:
     - Introduce pre-storage validation, e.g., ensuring no duplicate coordinate pairs.
 
-4. **Code Quality**:
+5. **Code Quality**:
     - Add linters and type checkers like `mypy` for better code quality and maintainability.
 
-5. **Geographical Library**:
+6. **Geographical Library**:
     - Replace `geopy` with a more Django-PostgreSQL-friendly geographical library, such as **PostGIS**, and store geolocation points in the database alongside the coordinates.
 
