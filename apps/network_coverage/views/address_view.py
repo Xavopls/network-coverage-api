@@ -16,6 +16,10 @@ class AddressView(APIView):
         description=(
                 "Retrieve network coverage data for a given query parameter. "
                 "The query parameter `q` should contain the address or location to search for coverage."
+                "`q` Must belong within the french territory, otherwise the results won't be correct."
+                "It fetches the french public API to get the coords, "
+                "and then calculates the closest distance between the address and the closest operator for each"
+                "available operator in the DB."
         ),
         parameters=[
             OpenApiParameter(

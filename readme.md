@@ -84,3 +84,10 @@ The project follows a solid architectural approach with a focus on separation of
 6. **Geographical Library**:
     - Replace `geopy` with a more Django-PostgreSQL-friendly geographical library, such as **PostGIS**, and store geolocation points in the database alongside the coordinates.
 
+7. **Admin panel setup**:
+   - Set up admin panel to manage records from there.
+   
+8. **Auth**:
+   - If necessary, add a Bearer token to make the API access safer and controlled.
+
+
